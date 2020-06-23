@@ -6,6 +6,9 @@ pipeline {
 
   stages{
     stage('build'){
+      when{
+        changeset "**/worker/**"
+      }
       steps{
         echo 'Compiling worker app'
         dir('worker'){
@@ -14,15 +17,38 @@ pipeline {
       }
     }
     stage('test'){
+      when{
+        changeset "**/worker/**"
+      }
       steps{
         echo 'Running Unit tests on worker app'
-        
+        dir('worker'){
+          sh 'mvn clean test'
+        }
       }
     }
     stage('package'){
+      when{
+        changeset "**/worker/**"
+      }
       steps{
         echo 'Packing worker app'
+        dir('worker'){
+          sh 'mvn package -DskipTests'
+          archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        }
       }
+    }
+  }
+  post {
+    always{
+      echo 'Pipeline successfully'
+    }
+    failure{
+      slackSend (channel: "general", message: "Build failed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+    }
+    success{
+      slackSend (channel: "general", message: "Build successed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
     }
   }
 }
