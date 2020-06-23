@@ -36,13 +36,13 @@ pipeline {
         echo 'Packing worker app'
         dir('worker'){
           sh 'mvn package -DskipTests'
+          archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
         }
       }
     }
   }
   post {
     always{
-      archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       echo 'Pipeline successfully'
     }
   }
