@@ -46,10 +46,10 @@ pipeline {
       echo 'Pipeline successfully'
     }
     failure{
-      slackSend (channel: "generic", message="Build failed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+      slackSend (channel: "general", message="Build failed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
     }
     success{
-      slackSend (channel: "generic", message="Build successed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+      slackSend (channel: "general", message="Build successed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
     }
   }
 }
