@@ -1,0 +1,42 @@
+pipeline{
+  agent{
+    docker{
+      image 'node:12.18.1-alpine3.9'
+    }
+  }
+  stages{
+    stage('Build'){
+      when{
+        changeset "**/result/**"
+      }
+      steps{
+        echo "Compile result app"
+        dir('result'){
+          sh 'npm install'
+        }        
+      }
+    }
+    stage('Test'){
+      when{
+        changeset "**/result/**"
+      }
+      steps{
+        echo "Running unit test on result app"
+        dir('result'){
+          sh 'npm test'
+        }     
+      }
+    }
+  }
+  post{
+    always{
+      echo 'Pipeline for result is completed'
+    }
+    failure{
+      slackSend (channel: "general", message: "Build failed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+    }
+    success{
+      slackSend (channel: "general", message: "Build successed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+    }
+  }
+}
