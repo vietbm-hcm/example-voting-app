@@ -1,0 +1,43 @@
+pipeline{
+  agent{
+    docker{
+      image 'python:3.7.7-alpine3.11'
+      args '--user root'
+    }
+  }
+  stages{
+    stage('Install'){
+      when{
+        changeset '**/vote/**'
+      }
+      steps{
+        echo 'Intall package'
+        dir('vote'){
+          sh 'pip install -r requirements.txt'
+        }
+      }
+    }
+    stage('Unit test'){
+      when{
+        changeset '**/vote/**'
+      }
+      steps{
+        dir('vote'){
+          echo 'Unit test'
+          sh 'nosetests'
+        }
+      }
+    }
+  }
+  post{
+    always{
+      echo 'Pipeline for vote is completed'
+    }
+    failure{
+      slackSend (channel: "general", message: "Build failed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+    }
+    success{
+      slackSend (channel: "general", message: "Build successed- ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+    }
+  }
+}
