@@ -24,7 +24,7 @@ pipeline{
       steps{
         dir('vote'){
           echo 'Unit test'
-          sh 'nosetests'
+          sh 'nosetests -v'
         }
       }
     }
