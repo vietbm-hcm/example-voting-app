@@ -29,6 +29,7 @@ pipeline{
       steps{
         echo "Running unit test on result app"
         dir('result'){
+          sh 'npm install'
           sh 'npm test'
         }     
       }
