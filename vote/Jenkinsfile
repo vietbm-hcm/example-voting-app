@@ -1,12 +1,13 @@
 pipeline{
-  agent{
-    docker{
-      image 'python:3.7.7-alpine3.11'
-      args '--user root'
-    }
-  }
+  agent none
   stages{
     stage('Install'){
+      agent{
+        docker{
+          image 'python:3.7.7-alpine3.11'
+          args '--user root'
+        }
+      }
       when{
         changeset '**/vote/**'
       }
@@ -18,6 +19,12 @@ pipeline{
       }
     }
     stage('Unit test'){
+      agent{
+        docker{
+          image 'python:3.7.7-alpine3.11'
+          args '--user root'
+        }
+      }
       when{
         changeset '**/vote/**'
       }
