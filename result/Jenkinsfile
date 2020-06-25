@@ -35,6 +35,10 @@ pipeline{
     }
     stage('Push Image docker'){
       agent any
+      when{
+        branch 'master'
+        changeset '**/result/**'
+      }
       steps{
         echo "Push image result to registry docker"
         script{
