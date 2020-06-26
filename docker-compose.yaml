@@ -1,7 +1,7 @@
 version: "3.7"
 
 volumes:
-  db_data:
+  dbdata:
 
 networks:
   instavote:
@@ -25,7 +25,7 @@ services:
   db:
     image: postgresql:9.4
     volumes:
-      - "db_data:/var/lib/postgresql/data"
+      - "dbdata:/var/lib/postgresql/data"
     networks:
       - instavote
 
