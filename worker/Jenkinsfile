@@ -1,8 +1,5 @@
 pipeline {
   agent none
-  environment{
-    PATH="$PATH:/usr/local/bin"
-  }
   stages{
     stage('build'){
       agent { 
@@ -62,7 +59,7 @@ pipeline {
       }
       steps{
         echo 'Deploy instavote app with docker compose'
-        sh 'docker-compose up -d'
+        sh '/usr/local/bin/docker-compose up -d'
       }
     }
   }
