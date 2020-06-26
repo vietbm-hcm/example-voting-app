@@ -59,7 +59,7 @@ pipeline {
       }
       steps{
         echo 'Deploy instavote app with docker compose'
-        sh '/usr/local/bin/docker-compose up -d -V'
+        sh '/usr/local/bin/docker-compose up -d --force-recreate'
       }
     }
   }
