@@ -4,8 +4,8 @@ volumes:
   db_data:
 
 networks:
-  - instavote:
-      driver: bridge
+  instavote:
+    driver: bridge
 
 services:
   vote:
