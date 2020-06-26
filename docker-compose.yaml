@@ -10,7 +10,8 @@ networks:
 services:
   vote:
     image: minhviet/vote:master
-    ports: 30080:80
+    ports: 
+      - 30080:80
     networks:
       - instavote
     depends_on:
