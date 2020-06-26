@@ -18,7 +18,7 @@ services:
       - redis
   
   redis:
-    image: redis:elpine
+    image: redis:alpine
     networks:
       - instavote
   
