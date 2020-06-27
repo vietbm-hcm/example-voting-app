@@ -23,7 +23,7 @@ services:
       - instavote
   
   db:
-    image: postgresql:9.4
+    image: postgres:9.6.18
     volumes:
       - dbdata:/var/lib/postgresql/data
     networks:
