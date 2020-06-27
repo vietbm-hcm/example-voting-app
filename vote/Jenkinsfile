@@ -60,7 +60,8 @@ pipeline{
       }
       steps{
         echo 'Deploy instavote app with docker compose'
-        sh '/usr/local/bin/docker-compose up -d --force-recreate --renew-anon-volumes'
+        sh '/usr/local/bin/docker-compose down -v --rmi all'
+        sh '/usr/local/bin/docker-compose up -d'
       }
     }
   }
