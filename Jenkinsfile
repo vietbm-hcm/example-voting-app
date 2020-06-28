@@ -18,7 +18,7 @@ pipeline {
         }
       }
     }
-    stage('woreker test'){
+    stage('worker test'){
       agent { 
         docker{
           image 'maven:3.6.1-jdk-8-alpine'
