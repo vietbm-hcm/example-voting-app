@@ -87,6 +87,19 @@ pipeline {
         }
       }
     }
+    stage('Vote intergration test'){
+      agent any
+      when{
+        changeset '**/vote/**'
+        branch 'master'
+      }
+      steps{
+        dir('vote'){
+          echo 'Run intergration test'
+          sh 'intergration_test.sh'
+        }
+      }
+    }
     stage('Vote push Image docker'){
       agent any
       when{
