@@ -24,6 +24,8 @@ services:
   
   db:
     image: postgres:9.6.18
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - dbdata:/var/lib/postgresql/data
     networks:
