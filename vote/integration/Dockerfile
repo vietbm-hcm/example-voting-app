@@ -1,4 +1,4 @@
-FROM alpine:3.9.4
+FROM alpine:3
 WORKDIR /test
 COPY . .
 RUN apk add curl
